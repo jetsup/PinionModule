@@ -46,7 +46,6 @@ void setup() {
 
   ResetData();  // Configure the NRF24 module  | NRF24 Modül konfigürasyonu
   if (!radio.begin()) { Serial.println("NRF INIT FAILED"); }
-  radio.setPayloadSize(100);
   // radio.openReadingPipe(1, pipeIn);
 
   //
@@ -91,7 +90,7 @@ void loop() {
   }
 
   if (wasOpenDigital && millis() - openTime >= 1000) {
-    servo.writeMicroseconds(1000);
+    servo.writeMicroseconds(2000);
     wasOpenDigital = false;
   }
 
@@ -207,7 +206,7 @@ void sendGpsData() {
 
   String dd = String(gpsDataTx);
   dd.replace("\n", "");
-  dd = "<<" + dd + ">>";
+  dd = "<$" + dd + "#>";
 
   // radio.write(gpsData, strlen(gpsData));
   // radio.write(gpsDataTx, sizeof(gpsDataTx));
