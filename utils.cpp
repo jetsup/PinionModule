@@ -27,7 +27,7 @@ void ResetData() {
   data.releaseCarriage = false;
 }
 void transmitData(String data) {
-  // Serial.println(data);
+  Serial.println(data);
   radio.openWritingPipe(pipeIn);
   radio.stopListening();
   smartDelay(10);
@@ -68,11 +68,6 @@ void receiveControlCommand() {
   if (radio.available()) {
     radio.read(&data, sizeof(Signal));
     lastRecvTime = millis();  // Receive the data
-    Serial.print("-------------------");
-    Serial.print(data.releaseCarriage);
-    Serial.print("::");
-    Serial.print(data.analogServoValueByte);
-    Serial.println("-------------------");
   }
 }
 
