@@ -40,17 +40,22 @@ void loop() {
   receiveControlCommand();
   unsigned long now = millis();
 
-  servoPwmDutyCycle = map(data.analogServoValueByte, 0, 255, 1000,
-                          2000);
+  servoPwmDutyCycle = map(data.analogServoValueByte, 0, 255, 1000, 2000);
 
   if (data.releaseCarriage) {
     openTime = millis();
     wasOpenDigital = true;
+    packageReleased = true;
     servo.writeMicroseconds(2000 /*open*/);
     data.releaseCarriage = false;
   } else {
     if (!wasOpenDigital && millis() - openTime > 1000) {
       servo.writeMicroseconds(servoPwmDutyCycle);  // Write the PWM signal
+
+      if (servoPwmDutyCycle > 1500) {
+        // past a certain point, the package is released
+        packageReleased = true;
+      }
     }
   }
 

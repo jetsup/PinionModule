@@ -12,7 +12,7 @@
 extern int servoPwmDutyCycle;
 extern unsigned long openTime;
 extern unsigned long prevSendTime;
-extern bool wasOpenDigital;
+extern bool wasOpenDigital, packageReleased;
 
 extern char gpsDataTx[100];
 

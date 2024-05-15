@@ -3,7 +3,7 @@
 int servoPwmDutyCycle = 0;
 
 unsigned long openTime = 0, prevSendTime = 0;
-bool wasOpenDigital = false;
+bool wasOpenDigital = false, packageReleased = false;
 
 char gpsDataTx[100];
 
@@ -58,6 +58,9 @@ void transmitData(String data) {
   radio.write(buffer, sizeof(buffer));
 
   sprintf(buffer, "<D%dD>", currentDistanceFromBase);
+  radio.write(buffer, sizeof(buffer));
+
+  sprintf(buffer, "<PS%dPS>", packageReleased);
   radio.write(buffer, sizeof(buffer));
 }
 
